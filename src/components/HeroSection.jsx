@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Button } from "/src/components/ui/button";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { ChevronDown } from "lucide-react";
 
 const HeroSection = () => {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
@@ -41,14 +42,30 @@ const HeroSection = () => {
     },
   };
 
+  const { scrollY } = useScroll();
+  const bgY = useTransform(scrollY, [0, 300], ["0%", "20%"]);
+
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <section
       ref={ref}
       id="hero"
-      className="relative min-h-screen flex flex-col justify-center items-center text-center text-white px-6 sm:px-12 lg:px-24 bg-[url('/assets/3.avif')] bg-cover bg-center bg-no-repeat"
+      className="relative min-h-screen flex flex-col justify-center items-center text-center text-white px-6 sm:px-12 lg:px-24 overflow-hidden"
       aria-label="Hero Section"
     >
-      {/* Optional fallback color to avoid flash */}
+      {/* Parallax Background */}
+      <motion.div
+        style={{ backgroundPositionY: bgY }}
+        className="absolute inset-0 z-[-1] bg-[url('/assets/3.avif')] bg-cover bg-center bg-no-repeat"
+      />
+
+      {/* Optional fallback color overlay */}
       <div className="absolute inset-0 bg-black/50 z-0" />
 
       <motion.div
@@ -101,12 +118,7 @@ const HeroSection = () => {
           <Button
             variant="outline"
             size="lg"
-            onClick={() => {
-              document.getElementById("portfolio")?.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-              });
-            }}
+            onClick={() => scrollToSection("portfolio")}
             className="bg-transparent border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-300"
             aria-label="Scroll to portfolio section"
           >
@@ -148,6 +160,18 @@ const HeroSection = () => {
             <FaTwitter />
           </a>
         </motion.div>
+
+        {/* Scroll Down Cue */}
+        <motion.button
+          onClick={() => scrollToSection("about")}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 0.8, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+          aria-label="Scroll to about section"
+          className="mt-12 text-white hover:opacity-100 opacity-80 transition-opacity duration-300"
+        >
+          <ChevronDown className="w-8 h-8 animate-bounce" />
+        </motion.button>
       </motion.div>
     </section>
   );

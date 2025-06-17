@@ -98,18 +98,18 @@ const Portfolio = () => {
         >
           {categories.map((category) => (
             <Button
-              key={category}
-              variant={activeCategory === category ? "default" : "outline"}
-              size="sm"
-              className={`${
-                activeCategory === category
-                  ? "bg-white/10 text-white"
-                  : "bg-transparent border-white/20 text-white/80 hover:bg-white/10"
-              } transition-all duration-300 text-xs sm:text-sm px-3 py-1`}
-              onClick={() => setActiveCategory(category)}
-            >
-              {category}
-            </Button>
+            key={category}
+            variant="ghost"
+            size="sm"
+            className={`border border-white/10 text-white/70 hover:text-violet-300 hover:border-violet-500/40 px-3 py-1 text-xs sm:text-sm rounded-full transition-all duration-300
+              ${activeCategory === category ? "bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-semibold shadow-lg" : ""}
+            `}
+            onClick={() => setActiveCategory(category)}
+            aria-pressed={activeCategory === category}
+          >
+            {category}
+          </Button>
+          
           ))}
         </motion.div>
 
