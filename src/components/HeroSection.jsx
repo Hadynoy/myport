@@ -113,8 +113,9 @@ const HeroSection = () => {
           className="text-base sm:text-lg text-white/70 max-w-2xl mx-auto leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.6 }} // faster, no delay
         >
+
           Crafting cutting-edge digital experiences with precision, creativity, and technical mastery.
         </motion.p>
 
