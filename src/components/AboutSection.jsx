@@ -38,16 +38,15 @@ const AboutSection = () => {
             </svg>
           </div>
 
-          {/* Optimized Image with Fallbacks */}
+          {/* Optimized Image: AVIF + WebP only */}
           <div className="relative z-10">
             <picture>
               <source srcSet="/assets/5.avif" type="image/avif" />
-              <source srcSet="/assets/5.webp" type="image/webp" />
               <img
-                src="/assets/5.jpg"
+                src="/assets/5.webp"
                 alt="Profile"
                 loading="lazy"
-                fetchpriority="low"
+                decoding="async"
                 width="400"
                 height="500"
                 className="w-full max-w-xs sm:max-w-sm lg:max-w-md object-cover shadow-xl border border-black/10"
@@ -94,9 +93,7 @@ const AboutSection = () => {
           <p className="text-gray-800 leading-relaxed max-w-xl mx-auto lg:mx-0 text-[15.5px]">
             I’m Adinoyi — a frontend developer who doesn’t just write code, but composes flow.  
             I bring clarity to complexity, turning raw ideas into intuitive, responsive realities. Every pixel has purpose. Every transition, intention.
-
             <br /><br />
-
             My work lives in that quiet intersection where design meets rhythm — fast-loading, cleanly structured, and effortlessly smooth.  
             This isn’t just frontend—it’s interface as feeling.
           </p>

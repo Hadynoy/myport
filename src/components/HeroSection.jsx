@@ -58,23 +58,24 @@ const HeroSection = () => {
       className="relative min-h-screen flex flex-col justify-center items-center text-center text-white px-6 sm:px-12 lg:px-24 overflow-hidden"
       aria-label="Hero Section"
     >
-      {/* Optimized background with AVIF + WebP fallback */}
+      {/* 🎯 Optimized Background */}
       <picture>
         <source srcSet="/assets/3.avif" type="image/avif" />
         <source srcSet="/assets/3.webp" type="image/webp" />
         <img
-          src="/assets/3.jpg"
-          alt="Hero background"
+          src="/assets/3.webp" // fallback is still next-gen, lighter
+          alt="Deep night sky background with stars"
           className="absolute inset-0 w-full h-full object-cover object-center -z-10"
           loading="eager"
           fetchpriority="high"
+          decoding="async"
         />
       </picture>
 
-      {/* Gradient overlay */}
+      {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent z-0" />
 
-      {/* Motion content */}
+      {/* Content */}
       <motion.div
         className="relative z-10 space-y-8 max-w-5xl mx-auto"
         initial={{ opacity: 0, y: 30 }}
@@ -82,6 +83,7 @@ const HeroSection = () => {
         transition={{ duration: 0.9, ease: "easeOut" }}
       >
         <motion.h1
+          as="h1"
           className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight drop-shadow-lg"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
@@ -90,7 +92,8 @@ const HeroSection = () => {
           Onubaiye Adinoyi
         </motion.h1>
 
-        <div className="relative h-10 sm:h-12 lg:h-14 overflow-hidden">
+        {/* Role rotator — height fixed to prevent layout shift */}
+        <div className="relative h-12 sm:h-14 lg:h-16 overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.span
               key={roles[currentRoleIndex]}
@@ -99,12 +102,14 @@ const HeroSection = () => {
               initial="initial"
               animate="animate"
               exit="exit"
+              aria-live="polite"
             >
               {roles[currentRoleIndex]}
             </motion.span>
           </AnimatePresence>
         </div>
 
+        {/* Description */}
         <motion.p
           className="text-base sm:text-lg text-white/70 max-w-2xl mx-auto leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
@@ -114,6 +119,7 @@ const HeroSection = () => {
           Crafting cutting-edge digital experiences with precision, creativity, and technical mastery.
         </motion.p>
 
+        {/* CTA Button */}
         <motion.div
           className="pt-6"
           initial={{ opacity: 0, y: 20 }}
@@ -125,12 +131,13 @@ const HeroSection = () => {
             size="lg"
             onClick={handleScroll}
             className="bg-transparent border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-300"
-            aria-label="Explore my portfolio"
+            aria-label="Scroll to portfolio section"
           >
             Explore My Work
           </Button>
         </motion.div>
 
+        {/* Social Links */}
         <motion.div
           className="flex justify-center gap-8 pt-8 text-2xl text-white/60"
           initial={{ opacity: 0, y: 20 }}
@@ -141,7 +148,7 @@ const HeroSection = () => {
             href="https://github.com/onubaiye"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="GitHub Profile"
+            aria-label="Visit my GitHub profile"
             className="hover:text-white transition-colors"
           >
             <FaGithub />
@@ -150,7 +157,7 @@ const HeroSection = () => {
             href="https://linkedin.com/in/onubaiye"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="LinkedIn Profile"
+            aria-label="Visit my LinkedIn profile"
             className="hover:text-white transition-colors"
           >
             <FaLinkedin />
@@ -159,7 +166,7 @@ const HeroSection = () => {
             href="https://twitter.com/onubaiye"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Twitter Profile"
+            aria-label="Visit my Twitter profile"
             className="hover:text-white transition-colors"
           >
             <FaTwitter />

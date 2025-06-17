@@ -18,17 +18,30 @@ const Banner = () => {
 
   return (
     <section
-      className="relative bg-fixed bg-center bg-cover bg-no-repeat py-24 px-4 text-white"
-      style={{ backgroundImage: `url('/assets/7.jpg')` }}
+      className="relative bg-black text-white py-24 px-4"
       aria-label="Impact statistics banner"
     >
-      {/* Dark overlay */}
+      {/* Optimized Background Image */}
       <div
-        className="absolute inset-0 bg-black/70 z-0"
+        className="absolute inset-0 z-0"
         aria-hidden="true"
         role="presentation"
-      />
+      >
+        <picture>
+          <source srcSet="/assets/7.avif" type="image/avif" />
+          <img
+            src="/assets/7.webp"
+            alt=""
+            className="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
+            aria-hidden="true"
+          />
+        </picture>
+        <div className="absolute inset-0 bg-black/70" />
+      </div>
 
+      {/* Foreground Content */}
       <div
         ref={ref}
         className="relative z-10 max-w-6xl mx-auto text-center space-y-12"

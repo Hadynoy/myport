@@ -3,90 +3,96 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Card } from "/src/components/ui/card";
 
+const testimonials = [
+  {
+    quote: "Onubaiye delivered a stunning website that exceeded our expectations!",
+    author: "Jane Doe, CEO of TechTrend",
+  },
+  {
+    quote: "The UI/UX design was intuitive and beautifully crafted. Highly recommend!",
+    author: "John Smith, Product Manager",
+  },
+  {
+    quote: "A seamless development process with exceptional attention to detail.",
+    author: "Sarah Lee, Startup Founder",
+  },
+  {
+    quote: "Transformed our vision into a scalable, high-performance platform.",
+    author: "Mike Brown, CTO of InnovateX",
+  },
+];
+
+const cardVariants = {
+  active: {
+    scale: 1,
+    y: 0,
+    rotateX: 0,
+    opacity: 1,
+    zIndex: 10,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+  inactive: {
+    scale: 0.95,
+    y: 30,
+    rotateX: 6,
+    opacity: 0,
+    zIndex: 0,
+    transition: { duration: 0.5, ease: "easeInOut" },
+  },
+  exit: {
+    scale: 0.9,
+    y: -30,
+    rotateX: -6,
+    opacity: 0,
+    zIndex: 0,
+    transition: { duration: 0.4, ease: "easeIn" },
+  },
+};
+
 const Testimonial = () => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
-
-  const testimonials = [
-    {
-      quote: "Onubaiye delivered a stunning website that exceeded our expectations!",
-      author: "Jane Doe, CEO of TechTrend",
-    },
-    {
-      quote: "The UI/UX design was intuitive and beautifully crafted. Highly recommend!",
-      author: "John Smith, Product Manager",
-    },
-    {
-      quote: "A seamless development process with exceptional attention to detail.",
-      author: "Sarah Lee, Startup Founder",
-    },
-    {
-      quote: "Transformed our vision into a scalable, high-performance platform.",
-      author: "Mike Brown, CTO of InnovateX",
-    },
-  ];
-
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [bgLoaded, setBgLoaded] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     if (inView) {
-      const interval = setInterval(() => {
+      const timer = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-      }, 4000);
-      return () => clearInterval(interval);
+      }, 4500);
+      return () => clearInterval(timer);
     }
-  }, [inView, testimonials.length]);
+  }, [inView]);
 
-  const cardVariants = {
-    active: {
-      scale: 1,
-      zIndex: 10,
-      y: 0,
-      opacity: 1,
-      rotateX: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-    inactive: {
-      scale: 0.9,
-      zIndex: 5,
-      y: 20,
-      opacity: 0.6,
-      rotateX: 10,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-    exit: {
-      scale: 0.7,
-      y: 50,
-      opacity: 0,
-      rotateX: 20,
-      transition: { duration: 0.4, ease: "easeIn" },
-    },
-  };
+  useEffect(() => {
+    if (inView && !bgLoaded) {
+      const img = new Image();
+      img.src = "/assets/8.webp";
+      img.onload = () => setBgLoaded(true);
+    }
+  }, [inView, bgLoaded]);
 
   return (
-    <section ref={ref} id="testimonials" className="relative text-white">
-      {/* Background image fallback using picture */}
+    <section
+      ref={ref}
+      id="testimonials"
+      className="relative text-white transition-all duration-700 ease-out"
+      style={{
+        backgroundImage: bgLoaded ? "url('/assets/8.webp')" : "none",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+      aria-label="Client Testimonials"
+    >
+      <div className="absolute inset-0 bg-neutral-900/60 z-0" aria-hidden="true" />
+
       <picture className="hidden">
         <source srcSet="/assets/8.avif" type="image/avif" />
         <source srcSet="/assets/8.webp" type="image/webp" />
-        <img
-          src="/assets/8.jpg"
-          alt="Background"
-          style={{ display: "none" }}
-          aria-hidden="true"
-        />
       </picture>
 
-      <div
-        className="bg-cover bg-center bg-fixed py-10 px-4 sm:px-8 lg:px-20"
-        style={{ backgroundImage: "url(/assets/8.jpg)" }}
-        aria-label="Testimonials Section"
-      >
-        <div className="absolute inset-0 bg-neutral-900/60 z-0" />
-
-        <div className="relative max-w-2xl mx-auto space-y-6 z-10">
+      <div className="relative z-10 py-20 px-4 sm:px-8 lg:px-20">
+        <div className="max-w-2xl mx-auto space-y-10">
           {/* Header */}
           <motion.div
             className="text-center space-y-1"
