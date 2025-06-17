@@ -53,7 +53,6 @@ const Testimonial = () => {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Cycle testimonials if inView
   useEffect(() => {
     if (inView) {
       const timer = setInterval(() => {
@@ -70,18 +69,16 @@ const Testimonial = () => {
       aria-label="Client Testimonials"
       className="relative text-white py-20 px-4 sm:px-8 lg:px-20 overflow-hidden"
     >
-      {/* Background div with overlay */}
+      {/* Background */}
       <div
-        className="absolute inset-0 bg-[url('/assets/8.webp')] bg-center bg-cover bg-no-repeat z-0"
+        className="absolute inset-0 bg-[url('/assets/8.avif')] bg-cover bg-center bg-no-repeat lg:bg-fixed z-0"
         role="presentation"
-        style={{ backgroundImage: "url('/assets/8.avif')" }}
       >
         <div className="absolute inset-0 bg-neutral-900/60" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 max-w-2xl mx-auto space-y-10">
-        {/* Header */}
         <motion.div
           className="text-center space-y-1"
           initial={{ opacity: 0, y: 10 }}
@@ -96,7 +93,7 @@ const Testimonial = () => {
           </p>
         </motion.div>
 
-        {/* Testimonial Carousel */}
+        {/* Card Carousel */}
         <div className="relative h-36 sm:h-44 perspective-1000">
           <AnimatePresence mode="wait">
             <motion.div

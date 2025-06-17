@@ -11,21 +11,17 @@ const stats = [
 ];
 
 const Banner = () => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.3,
-  });
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
 
   return (
     <section
       className="relative bg-black text-white py-24 px-4 overflow-hidden"
       aria-label="Impact statistics banner"
     >
-      {/* Tailwind Background */}
+      {/* Background */}
       <div
-        className="absolute inset-0 bg-[url('/assets/7.webp')] bg-cover bg-center bg-no-repeat z-0"
+        className="absolute inset-0 bg-[url('/assets/7.avif')] bg-cover bg-center bg-no-repeat lg:bg-fixed z-0"
         role="presentation"
-        style={{ backgroundImage: "url('/assets/7.avif')" }}
       >
         <div className="absolute inset-0 bg-black/70" />
       </div>
