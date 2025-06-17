@@ -18,26 +18,15 @@ const Banner = () => {
 
   return (
     <section
-      className="relative bg-black text-white py-24 px-4"
+      className="relative bg-black text-white py-24 px-4 overflow-hidden"
       aria-label="Impact statistics banner"
     >
-      {/* Optimized Background Image */}
+      {/* Tailwind Background */}
       <div
-        className="absolute inset-0 z-0"
-        aria-hidden="true"
+        className="absolute inset-0 bg-[url('/assets/7.webp')] bg-cover bg-center bg-no-repeat z-0"
         role="presentation"
+        style={{ backgroundImage: "url('/assets/7.avif')" }}
       >
-        <picture>
-          <source srcSet="/assets/7.avif" type="image/avif" />
-          <img
-            src="/assets/7.webp"
-            alt=""
-            className="w-full h-full object-cover"
-            loading="lazy"
-            decoding="async"
-            aria-hidden="true"
-          />
-        </picture>
         <div className="absolute inset-0 bg-black/70" />
       </div>
 

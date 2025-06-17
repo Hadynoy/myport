@@ -51,9 +51,9 @@ const cardVariants = {
 
 const Testimonial = () => {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
-  const [bgLoaded, setBgLoaded] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Cycle testimonials if inView
   useEffect(() => {
     if (inView) {
       const timer = setInterval(() => {
@@ -63,73 +63,60 @@ const Testimonial = () => {
     }
   }, [inView]);
 
-  useEffect(() => {
-    if (inView && !bgLoaded) {
-      const img = new Image();
-      img.src = "/assets/8.webp";
-      img.onload = () => setBgLoaded(true);
-    }
-  }, [inView, bgLoaded]);
-
   return (
     <section
       ref={ref}
       id="testimonials"
-      className="relative text-white transition-all duration-700 ease-out"
-      style={{
-        backgroundImage: bgLoaded ? "url('/assets/8.webp')" : "none",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-      }}
       aria-label="Client Testimonials"
+      className="relative text-white py-20 px-4 sm:px-8 lg:px-20 overflow-hidden"
     >
-      <div className="absolute inset-0 bg-neutral-900/60 z-0" aria-hidden="true" />
+      {/* Background div with overlay */}
+      <div
+        className="absolute inset-0 bg-[url('/assets/8.webp')] bg-center bg-cover bg-no-repeat z-0"
+        role="presentation"
+        style={{ backgroundImage: "url('/assets/8.avif')" }}
+      >
+        <div className="absolute inset-0 bg-neutral-900/60" />
+      </div>
 
-      <picture className="hidden">
-        <source srcSet="/assets/8.avif" type="image/avif" />
-        <source srcSet="/assets/8.webp" type="image/webp" />
-      </picture>
+      {/* Content */}
+      <div className="relative z-10 max-w-2xl mx-auto space-y-10">
+        {/* Header */}
+        <motion.div
+          className="text-center space-y-1"
+          initial={{ opacity: 0, y: 10 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight uppercase">
+            Testimonials
+          </h2>
+          <p className="text-white/60 text-sm sm:text-base max-w-sm mx-auto">
+            What clients say about my work.
+          </p>
+        </motion.div>
 
-      <div className="relative z-10 py-20 px-4 sm:px-8 lg:px-20">
-        <div className="max-w-2xl mx-auto space-y-10">
-          {/* Header */}
-          <motion.div
-            className="text-center space-y-1"
-            initial={{ opacity: 0, y: 10 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight uppercase">
-              Testimonials
-            </h2>
-            <p className="text-white/60 text-sm sm:text-base max-w-sm mx-auto">
-              What clients say about my work.
-            </p>
-          </motion.div>
-
-          {/* Testimonial Carousel */}
-          <div className="relative h-36 sm:h-44 perspective-1000">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentIndex}
-                className="absolute inset-0 flex items-center justify-center"
-                variants={cardVariants}
-                initial="inactive"
-                animate="active"
-                exit="exit"
-              >
-                <Card className="bg-neutral-900/70 border-white/10 shadow-md w-full max-w-md px-4 py-3 text-center">
-                  <p className="text-white/80 text-sm italic mb-2 leading-snug">
-                    "{testimonials[currentIndex].quote}"
-                  </p>
-                  <p className="text-white text-xs font-medium">
-                    {testimonials[currentIndex].author}
-                  </p>
-                </Card>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+        {/* Testimonial Carousel */}
+        <div className="relative h-36 sm:h-44 perspective-1000">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              className="absolute inset-0 flex items-center justify-center"
+              variants={cardVariants}
+              initial="inactive"
+              animate="active"
+              exit="exit"
+            >
+              <Card className="bg-neutral-900/70 border-white/10 shadow-md w-full max-w-md px-4 py-3 text-center">
+                <p className="text-white/80 text-sm italic mb-2 leading-snug">
+                  "{testimonials[currentIndex].quote}"
+                </p>
+                <p className="text-white text-xs font-medium">
+                  {testimonials[currentIndex].author}
+                </p>
+              </Card>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </section>
