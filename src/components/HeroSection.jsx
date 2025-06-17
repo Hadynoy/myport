@@ -64,9 +64,8 @@ const HeroSection = () => {
         <source srcSet="/assets/3.webp" type="image/webp" />
         <img
           src="/assets/3.webp"
-          alt="Deep night sky background with stars"
+          alt="Deep night sky with stars"
           className="absolute inset-0 w-full h-full object-cover object-center -z-10"
-          loading="eager"
           fetchpriority="high"
           decoding="async"
         />
@@ -84,7 +83,7 @@ const HeroSection = () => {
       >
         <motion.h1
           as="h1"
-          className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight drop-shadow-lg"
+          className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight drop-shadow-sm"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.8 }}
