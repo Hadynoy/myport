@@ -2,7 +2,6 @@ import React from "react";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
-import bgImage from "/src/assets/7.jpg";
 
 const stats = [
   { label: "Projects Completed", value: 45 },
@@ -20,11 +19,15 @@ const Banner = () => {
   return (
     <section
       className="relative bg-fixed bg-center bg-cover bg-no-repeat py-24 px-4 text-white"
-      style={{ backgroundImage: `url(${bgImage})` }}
+      style={{ backgroundImage: `url('/assets/7.jpg')` }}
       aria-label="Impact statistics banner"
     >
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/70 z-0" />
+      <div
+        className="absolute inset-0 bg-black/70 z-0"
+        aria-hidden="true"
+        role="presentation"
+      />
 
       <div
         ref={ref}
@@ -44,19 +47,19 @@ const Banner = () => {
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
+              className="space-y-2"
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="space-y-2"
             >
               <dt className="sr-only">{stat.label}</dt>
               <dd className="text-4xl sm:text-5xl font-bold text-white/90">
                 {inView && (
                   <CountUp
                     end={stat.value}
-                    duration={3}
+                    duration={2.5}
                     separator=","
-                    suffix={stat.label === "Years Coding" ? "+" : "+"}
+                    suffix="+"
                   />
                 )}
               </dd>

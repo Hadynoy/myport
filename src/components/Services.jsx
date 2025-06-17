@@ -1,166 +1,72 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Button } from "/src/components/ui/button";
+import { Code2, Paintbrush, Rocket } from "lucide-react";
+
+const services = [
+  {
+    icon: <Code2 className="w-8 h-8" />,
+    title: "Frontend Development",
+    description: "I build performant, responsive user interfaces using modern tools like React and Tailwind CSS.",
+  },
+  {
+    icon: <Paintbrush className="w-8 h-8" />,
+    title: "UI/UX Design",
+    description: "Crafting digital interfaces with empathy and precision for intuitive experiences.",
+  },
+  {
+    icon: <Rocket className="w-8 h-8" />,
+    title: "Creative Engineering",
+    description: "Merging creativity with logic to ship beautiful, scalable, meaningful web products.",
+  },
+];
 
 const Services = () => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
-
-  const services = [
-    {
-      title: "Web Development",
-      description:
-        "Building scalable, high-performance web applications using React, Next.js, and Node.js, tailored to your business needs.",
-      icon: "🌐",
-    },
-    {
-      title: "UI/UX Design",
-      description:
-        "Crafting intuitive, pixel-perfect interfaces that prioritize user experience and accessibility.",
-      icon: "🎨",
-    },
-    {
-      title: "Frontend Architecture",
-      description:
-        "Designing robust, modular front-end systems with TypeScript and modern frameworks for seamless scalability.",
-      icon: "🏗️",
-    },
-    {
-      title: "Consulting & Strategy",
-      description:
-        "Providing expert guidance to align technology solutions with your strategic goals, from ideation to execution.",
-      icon: "📈",
-    },
-  ];
-
   const [activeServiceIndex, setActiveServiceIndex] = useState(0);
+  const { ref, inView } = useInView({ triggerOnce: true });
+  const intervalRef = useRef();
 
   useEffect(() => {
     if (inView) {
-      const interval = setInterval(() => {
-        setActiveServiceIndex((prevIndex) => (prevIndex + 1) % services.length);
+      intervalRef.current = setInterval(() => {
+        setActiveServiceIndex(prev => (prev + 1) % services.length);
       }, 3000);
-      return () => clearInterval(interval);
     }
-  }, [inView, services.length]);
-
-  const serviceVariants = {
-    initial: { opacity: 0, y: 10, filter: "blur(2px)" },
-    animate: {
-      opacity: 1,
-      y: 0,
-      scale: [0.95, 1.05, 1],
-      filter: "blur(0px)",
-      transition: {
-        duration: 0.5,
-        ease: "linear",
-      },
-    },
-    exit: {
-      opacity: 0,
-      y: -10,
-      filter: "blur(2px)",
-      transition: {
-        duration: 0.3,
-        ease: "linear",
-      },
-    },
-  };
+    return () => clearInterval(intervalRef.current);
+  }, [inView]);
 
   return (
-    <section
-      ref={ref}
-      id="services"
-      className="py-20 px-6 sm:px-12 lg:px-24 bg-neutral-950 text-white"
-      aria-label="Services Section"
-    >
-      <div className="max-w-6xl mx-auto space-y-16">
-        {/* Header */}
-        <motion.div
-          className="text-center space-y-4"
-          initial={{ opacity: 0, y: 10 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: "linear" }}
-        >
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight uppercase">
-            Services
-          </h2>
-          <p className="text-white/60 text-lg max-w-2xl mx-auto">
-            Delivering tailored solutions that blend technical excellence with strategic vision.
-          </p>
-        </motion.div>
+    <section id="services" ref={ref} className="bg-white py-24 px-6 sm:px-12 lg:px-24">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8 }}
+        className="max-w-7xl mx-auto text-center"
+      >
+        <h2 className="text-4xl font-bold uppercase tracking-tight text-black">What I Do</h2>
+        <p className="mt-4 text-sm leading-relaxed text-gray-700 max-w-2xl mx-auto">
+          Whether it's sleek interfaces or functional flows — I bring design, code, and clarity together.
+        </p>
+      </motion.div>
 
-        {/* Highlight Service */}
-        <motion.div
-          className="relative h-48 sm:h-56 lg:h-64 bg-neutral-900/60 border border-white/10 shadow-2xl p-8 flex flex-col justify-center items-center text-center backdrop-blur-sm"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.5, ease: "linear", delay: 0.2 }}
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={services[activeServiceIndex].title}
-              className="space-y-4"
-              variants={serviceVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-            >
-              <h3 className="text-2xl sm:text-3xl font-semibold text-white/90">
-                {services[activeServiceIndex].title}
-              </h3>
-              <p className="text-white/70 text-base sm:text-lg max-w-xl">
-                {services[activeServiceIndex].description}
-              </p>
-            </motion.div>
-          </AnimatePresence>
-        </motion.div>
-
-        {/* Service Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service, index) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 10 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: 0.3 + index * 0.1, ease: "linear" }}
-            >
-              <div
-                onClick={() => setActiveServiceIndex(index)}
-                role="button"
-                tabIndex={0}
-                aria-label={`Select ${service.title} service`}
-                className={`h-56 sm:h-64 lg:h-72 bg-neutral-900/60 border border-white/10 shadow-2xl p-6 flex flex-col justify-center items-center text-center backdrop-blur-sm transition-all duration-300 ${
-                  activeServiceIndex === index ? "ring-2 ring-white/20" : ""
-                }`}
-              >
-                <div className="text-white text-3xl mb-3">{service.icon}</div>
-                <h4 className="text-xl font-semibold text-white/90 mb-2">{service.title}</h4>
-                <p className="text-white/70 text-sm">{service.description}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <motion.div
-          className="text-center pt-10"
-          initial={{ opacity: 0, y: 10 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.8, ease: "linear" }}
-        >
-          <Button
-            variant="outline"
-            size="lg"
-            asChild
-            className="bg-transparent border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-300"
+      <div className="mt-16 grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+        {services.map((service, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: index * 0.2 }}
+            className={`p-6 rounded-xl border shadow-md transition-all duration-300 ${
+              index === activeServiceIndex
+                ? "bg-black text-white scale-[1.03]"
+                : "bg-white text-black hover:shadow-xl"
+            }`}
           >
-            <a href="#contact">Get in Touch</a>
-          </Button>
-        </motion.div>
+            <div className="mb-4">{service.icon}</div>
+            <h3 className="text-lg font-bold mb-2">{service.title}</h3>
+            <p className="text-sm leading-relaxed">{service.description}</p>
+          </motion.div>
+        ))}
       </div>
     </section>
   );

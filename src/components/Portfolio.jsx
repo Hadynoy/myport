@@ -15,7 +15,7 @@ const Portfolio = () => {
     {
       title: "HealthBridge",
       description: "A healthcare platform for managing patient data and appointments.",
-      image: "/src/assets/9.png", // Make sure to add this image to your assets folder
+      imageBase: "9", // public/9.(avif|webp|png)
       category: "Web Dev",
       link: "https://healthbridge-rn8h.onrender.com/",
       icon: <FaCode className="text-2xl" />,
@@ -23,7 +23,7 @@ const Portfolio = () => {
     {
       title: "Portfolio Website",
       description: "Dynamic portfolio with React and Tailwind CSS.",
-      image: "/src/assets/project2.jpg",
+      imageBase: "project2",
       category: "Web Dev",
       link: "https://example.com/portfolio",
       icon: <FaCode className="text-2xl" />,
@@ -31,7 +31,7 @@ const Portfolio = () => {
     {
       title: "Task Management App",
       description: "Real-time collaboration app with TypeScript.",
-      image: "/src/assets/project3.jpg",
+      imageBase: "project3",
       category: "Web Dev",
       link: "https://example.com/taskapp",
       icon: <FaCode className="text-2xl" />,
@@ -39,7 +39,7 @@ const Portfolio = () => {
     {
       title: "Mobile Banking UI",
       description: "Intuitive mobile banking interface with Figma.",
-      image: "/src/assets/project4.jpg",
+      imageBase: "project4",
       category: "UI/UX",
       link: "https://example.com/banking-ui",
       icon: <FaMobileAlt className="text-2xl" />,
@@ -47,7 +47,7 @@ const Portfolio = () => {
     {
       title: "Dashboard Redesign",
       description: "Modern admin dashboard with custom UI/UX.",
-      image: "/src/assets/project5.jpg",
+      imageBase: "project5",
       category: "UI/UX",
       link: "https://example.com/dashboard",
       icon: <FaPalette className="text-2xl" />,
@@ -55,7 +55,7 @@ const Portfolio = () => {
     {
       title: "Tech Consulting Portal",
       description: "Strategic portal with React and GraphQL.",
-      image: "/src/assets/project6.jpg",
+      imageBase: "project6",
       category: "Web Dev",
       link: "https://example.com/consulting",
       icon: <FaCode className="text-2xl" />,
@@ -63,7 +63,6 @@ const Portfolio = () => {
   ];
 
   const categories = ["All", "Web Dev", "UI/UX"];
-
   const [activeCategory, setActiveCategory] = useState("All");
 
   const filteredProjects =
@@ -75,8 +74,7 @@ const Portfolio = () => {
     <section
       ref={ref}
       id="portfolio"
-      className="py-16 px-6 sm:px-12 lg:px-20 bg-neutral-900 text-white"
-      aria-label="Portfolio Section"
+      className="py-18 px-6 sm:px-12 lg:px-20 bg-neutral-900 text-white"
     >
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header */}
@@ -94,7 +92,7 @@ const Portfolio = () => {
           </p>
         </motion.div>
 
-        {/* Category Filter */}
+        {/* Filter */}
         <motion.div
           className="flex justify-center gap-2 flex-wrap"
           initial={{ opacity: 0, y: 15 }}
@@ -112,14 +110,13 @@ const Portfolio = () => {
                   : "bg-transparent border-white/20 text-white/80 hover:bg-white/10"
               } transition-all duration-300 text-xs sm:text-sm px-3 py-1`}
               onClick={() => setActiveCategory(category)}
-              aria-label={`Filter by ${category}`}
             >
               {category}
             </Button>
           ))}
         </motion.div>
 
-        {/* Project Cards */}
+        {/* Cards */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
@@ -136,22 +133,25 @@ const Portfolio = () => {
                 transition={{ duration: 0.4, delay: 0.1 + index * 0.08 }}
               >
                 <Card className="relative bg-neutral-900/30 border-white/10 shadow-md h-64 overflow-hidden group border-none">
-                  <img
-                    src={project.image}
-                    alt={`${project.title} preview`}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-115 group-hover:brightness-75"
-                  />
-                  {/* Default Content */}
+                  <picture>
+                    <source srcSet={`/${project.imageBase}.avif`} type="image/avif" />
+                    <source srcSet={`/${project.imageBase}.webp`} type="image/webp" />
+                    <img
+                      src={`/${project.imageBase}.png`}
+                      alt={`${project.title} preview`}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-115 group-hover:brightness-75"
+                    />
+                  </picture>
+
                   <div className="absolute inset-0 bg-black/30 flex items-center justify-center p-4 transition-opacity duration-500 group-hover:opacity-0">
                     <p className="text-white/80 text-sm">{project.description}</p>
                   </div>
-                  {/* Hover Content */}
+
                   <a
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-neutral-900/50"
-                    aria-label={`View ${project.title} project`}
                   >
                     <motion.div
                       className="flex items-center gap-3 text-white"

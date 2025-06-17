@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Button } from "/src/components/ui/button";
-import heroBg from "/src/assets/3.jpg";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const HeroSection = () => {
@@ -56,12 +55,26 @@ const HeroSection = () => {
     <section
       ref={ref}
       id="hero"
-      className="relative min-h-screen flex flex-col justify-center items-center text-center text-white bg-cover bg-center bg-fixed px-6 sm:px-12 lg:px-24"
-      style={{ backgroundImage: `url(${heroBg})` }}
+      className="relative min-h-screen flex flex-col justify-center items-center text-center text-white px-6 sm:px-12 lg:px-24 overflow-hidden"
       aria-label="Hero Section"
     >
+      {/* Optimized background with AVIF + WebP fallback */}
+      <picture>
+        <source srcSet="/assets/3.avif" type="image/avif" />
+        <source srcSet="/assets/3.webp" type="image/webp" />
+        <img
+          src="/assets/3.jpg"
+          alt="Hero background"
+          className="absolute inset-0 w-full h-full object-cover object-center -z-10"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </picture>
+
+      {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent z-0" />
 
+      {/* Motion content */}
       <motion.div
         className="relative z-10 space-y-8 max-w-5xl mx-auto"
         initial={{ opacity: 0, y: 30 }}

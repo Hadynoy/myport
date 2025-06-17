@@ -1,139 +1,110 @@
-import React, { useState, useEffect } from 'react';
-import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import React, { useEffect, useRef, useState } from "react";
+import { Menu, X } from "lucide-react";
+import { Link as ScrollLink } from "react-scroll";
+import { motion } from "framer-motion";
 
 const navLinks = [
-  { label: 'Home', to: 'hero' },
-  { label: 'About', to: 'about' },
-  { label: 'Services', to: 'services' },
-  { label: 'Projects', to: 'portfolio' },
-  { label: 'Contact', to: 'contact' },
+  { id: "about", label: "About" },
+  { id: "services", label: "Services" },
+  { id: "portfolio", label: "Projects" },
+  { id: "contact", label: "Contact" },
 ];
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showNavbar, setShowNavbar] = useState(false);
-  const [activeLink, setActiveLink] = useState('hero');
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleScroll = () => {
+    setIsScrolled(window.scrollY > 50);
+  };
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const aboutSection = document.getElementById('about');
-      const aboutOffsetTop = aboutSection?.offsetTop || 600;
-
-      setIsScrolled(scrollY > 10);
-      setShowNavbar(scrollY >= aboutOffsetTop - 100);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToTop = () => scroll.scrollToTop();
-
   return (
-    <>
-      <nav
-        className={`fixed top-0 left-0 w-full z-50 px-6 py-4 md:px-16 transition-all duration-300 ${
-          showNavbar ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        } ${isScrolled ? 'bg-white/80 backdrop-blur-md shadow-md text-gray-800' : 'text-white'}`}
-      >
-        <div className="flex justify-between items-center">
-          {/* Logo */}
-          <div
-            onClick={scrollToTop}
-            className="font-bold text-xl tracking-wide cursor-pointer"
+    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? "bg-white shadow-lg" : "bg-transparent"}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-4 flex items-center justify-between">
+        <ScrollLink to="hero" smooth duration={500} className="text-xl font-bold tracking-tight cursor-pointer">
+          BigMoerell
+        </ScrollLink>
+
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex space-x-8 items-center text-sm font-medium">
+          {navLinks.map(link => (
+            <ScrollLink
+              key={link.id}
+              to={link.id}
+              smooth={true}
+              duration={500}
+              offset={-60}
+              className="text-gray-800 hover:text-black cursor-pointer transition"
+            >
+              {link.label}
+            </ScrollLink>
+          ))}
+          <ScrollLink
+            to="contact"
+            smooth
+            duration={500}
+            offset={-60}
+            className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-900 transition cursor-pointer"
           >
-            Big Moerell.
-          </div>
+            Let’s Talk
+          </ScrollLink>
+        </nav>
 
-          {/* Desktop Nav */}
-          <ul className="hidden md:flex gap-8 font-medium items-center relative">
-            {navLinks.map(({ label, to }) => (
-              <li key={to} className="relative group">
-                <ScrollLink
-                  to={to}
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                  onSetActive={() => setActiveLink(to)}
-                  className="cursor-pointer transition text-sm"
-                >
-                  {label}
-                </ScrollLink>
+        {/* Mobile Hamburger */}
+        <button onClick={() => setMobileMenuOpen(true)} className="md:hidden text-black">
+          <Menu className="w-6 h-6" />
+        </button>
 
-                {/* Underline */}
-                <motion.span
-                  layoutId="underline"
-                  className="absolute left-1/2 -bottom-1.5 h-[2px] w-0 group-hover:w-full bg-black transition-all duration-300 origin-center"
-                  animate={{
-                    width: activeLink === to ? '100%' : '0%',
-                    left: activeLink === to ? '0%' : '50%',
-                  }}
-                  transition={{
-                    type: 'spring',
-                    stiffness: 300,
-                    damping: 24,
-                  }}
-                />
-              </li>
-            ))}
-            <li>
-              <button className="ml-4 border border-black px-4 py-1 rounded-full text-sm hover:bg-black hover:text-white transition">
-                Let's Talk
-              </button>
-            </li>
-          </ul>
-
-          {/* Mobile Toggle */}
-          <button
-            className="md:hidden text-current"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Slide-In Menu */}
-      <AnimatePresence>
-        {isMenuOpen && showNavbar && (
+        {/* Mobile Nav */}
+        {isMobileMenuOpen && (
           <motion.div
-            initial={{ x: '100%' }}
+            initial={{ x: "100%" }}
             animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed top-0 right-0 h-full w-[80%] bg-white text-gray-900 px-6 pt-20 pb-10 overflow-y-auto z-60 md:hidden shadow-xl"
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[60] bg-white will-change-transform"
           >
-            <div className="flex flex-col gap-6 text-lg">
-              {navLinks.map(({ label, to }) => (
+            <div className="flex justify-between items-center px-6 py-4 border-b border-gray-200">
+              <span className="text-lg font-bold">BigMoerell</span>
+              <button onClick={() => setMobileMenuOpen(false)}>
+                <X className="w-6 h-6 text-black" />
+              </button>
+            </div>
+
+            <div className="flex flex-col px-6 py-8 space-y-6 text-lg font-medium text-gray-800">
+              {navLinks.map(link => (
                 <ScrollLink
-                  key={to}
-                  to={to}
-                  spy={true}
-                  smooth={true}
+                  key={link.id}
+                  to={link.id}
+                  smooth
                   duration={500}
-                  onClick={() => {
-                    setIsMenuOpen(false);
-                    setActiveLink(to);
-                  }}
-                  className={`cursor-pointer transition ${
-                    activeLink === to ? 'font-semibold text-black' : ''
-                  }`}
+                  offset={-60}
+                  className="hover:text-black cursor-pointer"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
-                  {label}
+                  {link.label}
                 </ScrollLink>
               ))}
-              <button className="mt-6 border border-black px-4 py-2 rounded-full hover:bg-black hover:text-white transition">
-                Let's Talk
-              </button>
+              <ScrollLink
+                to="contact"
+                smooth
+                duration={500}
+                offset={-60}
+                className="bg-black text-white px-4 py-2 rounded-md w-fit hover:bg-gray-900 transition cursor-pointer"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Let’s Talk
+              </ScrollLink>
             </div>
           </motion.div>
         )}
-      </AnimatePresence>
-    </>
+      </div>
+    </header>
   );
 };
 

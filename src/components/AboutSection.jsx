@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "/src/components/ui/button";
-import profileImg from "/src/assets/5.jpg";
 
 const AboutSection = () => {
   return (
@@ -17,6 +16,7 @@ const AboutSection = () => {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
+          {/* SVG Decorative Grid */}
           <div className="absolute bottom-0 left-0 z-0 opacity-10">
             <svg width="160" height="160">
               <defs>
@@ -38,12 +38,21 @@ const AboutSection = () => {
             </svg>
           </div>
 
+          {/* Optimized Image with Fallbacks */}
           <div className="relative z-10">
-            <img
-              src={profileImg}
-              alt="Profile"
-              className="w-full max-w-xs sm:max-w-sm lg:max-w-md object-cover shadow-xl border border-black/10"
-            />
+            <picture>
+              <source srcSet="/assets/5.avif" type="image/avif" />
+              <source srcSet="/assets/5.webp" type="image/webp" />
+              <img
+                src="/assets/5.jpg"
+                alt="Profile"
+                loading="lazy"
+                fetchpriority="low"
+                width="400"
+                height="500"
+                className="w-full max-w-xs sm:max-w-sm lg:max-w-md object-cover shadow-xl border border-black/10"
+              />
+            </picture>
           </div>
         </motion.div>
 
@@ -59,13 +68,10 @@ const AboutSection = () => {
               About Me
             </h2>
 
-            {/* Accent Line - Responsive */}
+            {/* Accent Line */}
             <div className="relative mt-3 h-1 w-32 sm:w-44 bg-white overflow-hidden rounded-full mx-auto lg:mx-0">
-              {/* Left fade */}
               <div className="absolute left-0 top-0 h-full w-4 sm:w-6 bg-gradient-to-r from-white to-transparent z-10" />
-              {/* Right fade */}
               <div className="absolute right-0 top-0 h-full w-4 sm:w-6 bg-gradient-to-l from-white to-transparent z-10" />
-              {/* Animated Line */}
               <motion.div
                 className="absolute top-0 left-0 h-full w-20 sm:w-28 flex justify-between items-center"
                 initial={{ left: "-100%" }}
@@ -86,15 +92,14 @@ const AboutSection = () => {
 
           {/* BIO */}
           <p className="text-gray-800 leading-relaxed max-w-xl mx-auto lg:mx-0 text-[15.5px]">
-  I’m Adinoyi — a frontend developer who doesn’t just write code, but composes flow.  
-  I bring clarity to complexity, turning raw ideas into intuitive, responsive realities. Every pixel has purpose. Every transition, intention.
+            I’m Adinoyi — a frontend developer who doesn’t just write code, but composes flow.  
+            I bring clarity to complexity, turning raw ideas into intuitive, responsive realities. Every pixel has purpose. Every transition, intention.
 
-  <br /><br />
+            <br /><br />
 
-  My work lives in that quiet intersection where design meets rhythm — fast-loading, cleanly structured, and effortlessly smooth.  
-  This isn’t just frontend—it’s interface as feeling.
-</p>
-
+            My work lives in that quiet intersection where design meets rhythm — fast-loading, cleanly structured, and effortlessly smooth.  
+            This isn’t just frontend—it’s interface as feeling.
+          </p>
 
           {/* BUTTONS */}
           <div className="flex flex-col sm:flex-row gap-4 pt-6 justify-center lg:justify-start">
@@ -103,7 +108,7 @@ const AboutSection = () => {
               className="bg-black text-white hover:bg-gray-900 transition-colors shadow-none rounded-none px-6"
               asChild
             >
-              <a href="/src/assets/Adinoyi-CV.pdf" download>
+              <a href="/assets/Adinoyi-CV.pdf" download>
                 Download CV
               </a>
             </Button>

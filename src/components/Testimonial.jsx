@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Card } from "/src/components/ui/card";
-import backgroundImage from "/src/assets/8.jpg";
 
 const Testimonial = () => {
   const { ref, inView } = useInView({
@@ -67,52 +66,64 @@ const Testimonial = () => {
   };
 
   return (
-    <section
-      ref={ref}
-      id="testimonials"
-      className="relative py-10 px-4 sm:px-8 lg:px-20 text-white bg-cover bg-center bg-fixed"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
-      aria-label="Testimonials Section"
-    >
-      <div className="absolute inset-0 bg-neutral-900/60 z-0" />
+    <section ref={ref} id="testimonials" className="relative text-white">
+      {/* Background image fallback using picture */}
+      <picture className="hidden">
+        <source srcSet="/assets/8.avif" type="image/avif" />
+        <source srcSet="/assets/8.webp" type="image/webp" />
+        <img
+          src="/assets/8.jpg"
+          alt="Background"
+          style={{ display: "none" }}
+          aria-hidden="true"
+        />
+      </picture>
 
-      <div className="relative max-w-2xl mx-auto space-y-6 z-10">
-        {/* Header */}
-        <motion.div
-          className="text-center space-y-1"
-          initial={{ opacity: 0, y: 10 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight uppercase">
-            Testimonials
-          </h2>
-          <p className="text-white/60 text-sm sm:text-base max-w-sm mx-auto">
-            What clients say about my work.
-          </p>
-        </motion.div>
+      <div
+        className="bg-cover bg-center bg-fixed py-10 px-4 sm:px-8 lg:px-20"
+        style={{ backgroundImage: "url(/assets/8.jpg)" }}
+        aria-label="Testimonials Section"
+      >
+        <div className="absolute inset-0 bg-neutral-900/60 z-0" />
 
-        {/* Testimonial Carousel */}
-        <div className="relative h-36 sm:h-44 perspective-1000">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              className="absolute inset-0 flex items-center justify-center"
-              variants={cardVariants}
-              initial="inactive"
-              animate="active"
-              exit="exit"
-            >
-              <Card className="bg-neutral-900/70 border-white/10 shadow-md w-full max-w-md px-4 py-3 text-center">
-                <p className="text-white/80 text-sm italic mb-2 leading-snug">
-                  "{testimonials[currentIndex].quote}"
-                </p>
-                <p className="text-white text-xs font-medium">
-                  {testimonials[currentIndex].author}
-                </p>
-              </Card>
-            </motion.div>
-          </AnimatePresence>
+        <div className="relative max-w-2xl mx-auto space-y-6 z-10">
+          {/* Header */}
+          <motion.div
+            className="text-center space-y-1"
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight uppercase">
+              Testimonials
+            </h2>
+            <p className="text-white/60 text-sm sm:text-base max-w-sm mx-auto">
+              What clients say about my work.
+            </p>
+          </motion.div>
+
+          {/* Testimonial Carousel */}
+          <div className="relative h-36 sm:h-44 perspective-1000">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentIndex}
+                className="absolute inset-0 flex items-center justify-center"
+                variants={cardVariants}
+                initial="inactive"
+                animate="active"
+                exit="exit"
+              >
+                <Card className="bg-neutral-900/70 border-white/10 shadow-md w-full max-w-md px-4 py-3 text-center">
+                  <p className="text-white/80 text-sm italic mb-2 leading-snug">
+                    "{testimonials[currentIndex].quote}"
+                  </p>
+                  <p className="text-white text-xs font-medium">
+                    {testimonials[currentIndex].author}
+                  </p>
+                </Card>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>
