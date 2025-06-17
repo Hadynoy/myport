@@ -15,7 +15,7 @@ const Portfolio = () => {
     {
       title: "HealthBridge",
       description: "A healthcare platform for managing patient data and appointments.",
-      imageBase: "9", // public/9.(avif|webp|png)
+      imageBase: "assets/9", // Fixed: Includes 'assets/' for public path
       category: "Web Dev",
       link: "https://healthbridge-rn8h.onrender.com/",
       icon: <FaCode className="text-2xl" />,
@@ -23,7 +23,7 @@ const Portfolio = () => {
     {
       title: "Portfolio Website",
       description: "Dynamic portfolio with React and Tailwind CSS.",
-      imageBase: "project2",
+      imageBase: "assets/project2",
       category: "Web Dev",
       link: "https://example.com/portfolio",
       icon: <FaCode className="text-2xl" />,
@@ -31,7 +31,7 @@ const Portfolio = () => {
     {
       title: "Task Management App",
       description: "Real-time collaboration app with TypeScript.",
-      imageBase: "project3",
+      imageBase: "assets/project3",
       category: "Web Dev",
       link: "https://example.com/taskapp",
       icon: <FaCode className="text-2xl" />,
@@ -39,7 +39,7 @@ const Portfolio = () => {
     {
       title: "Mobile Banking UI",
       description: "Intuitive mobile banking interface with Figma.",
-      imageBase: "project4",
+      imageBase: "assets/project4",
       category: "UI/UX",
       link: "https://example.com/banking-ui",
       icon: <FaMobileAlt className="text-2xl" />,
@@ -47,7 +47,7 @@ const Portfolio = () => {
     {
       title: "Dashboard Redesign",
       description: "Modern admin dashboard with custom UI/UX.",
-      imageBase: "project5",
+      imageBase: "assets/project5",
       category: "UI/UX",
       link: "https://example.com/dashboard",
       icon: <FaPalette className="text-2xl" />,
@@ -55,7 +55,7 @@ const Portfolio = () => {
     {
       title: "Tech Consulting Portal",
       description: "Strategic portal with React and GraphQL.",
-      imageBase: "project6",
+      imageBase: "assets/project6",
       category: "Web Dev",
       link: "https://example.com/consulting",
       icon: <FaCode className="text-2xl" />,
