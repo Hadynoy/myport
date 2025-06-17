@@ -4,7 +4,6 @@ import tailwindcss from '@tailwindcss/vite';
 import viteCompression from 'vite-plugin-compression';
 import { imagetools } from 'vite-imagetools';
 import { visualizer } from 'rollup-plugin-visualizer';
-// import { VitePWA } from 'vite-plugin-pwa'; // Uncomment when ready
 
 export default defineConfig({
   plugins: [
@@ -16,22 +15,27 @@ export default defineConfig({
       threshold: 10240,
       deleteOriginFile: false,
     }),
-    imagetools(), // 🔥 Enables lazy/responsive image optimization
+    imagetools(),
     visualizer({
       filename: './dist/stats.html',
       open: true,
       template: 'treemap',
     }),
-    // VitePWA({ registerType: 'autoUpdate' }) // Optional: enable when you're ready
   ],
+  optimizeDeps: {
+    include: ['react', 'react-dom/client'],
+  },
   build: {
     minify: 'esbuild',
     cssCodeSplit: true,
     sourcemap: false,
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom', 'framer-motion'],
+          vendor: ['react', 'react-dom', 'framer-motion','tailwind-merge'],
         },
       },
     },
