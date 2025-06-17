@@ -45,7 +45,7 @@ const HeroSection = () => {
     <section
       ref={ref}
       id="hero"
-      className="relative min-h-screen flex flex-col justify-center items-center text-center text-white px-6 sm:px-12 lg:px-24 bg-[url('/assets/3.webp')] bg-cover bg-center bg-no-repeat"
+      className="relative min-h-screen flex flex-col justify-center items-center text-center text-white px-6 sm:px-12 lg:px-24 bg-[url('/assets/3.avif')] bg-cover bg-center bg-no-repeat"
       aria-label="Hero Section"
     >
       {/* Optional fallback color to avoid flash */}
