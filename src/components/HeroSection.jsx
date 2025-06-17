@@ -58,12 +58,12 @@ const HeroSection = () => {
       className="relative min-h-screen flex flex-col justify-center items-center text-center text-white px-6 sm:px-12 lg:px-24 overflow-hidden"
       aria-label="Hero Section"
     >
-      {/* 🎯 Optimized Background */}
+      {/* Optimized Background */}
       <picture>
         <source srcSet="/assets/3.avif" type="image/avif" />
         <source srcSet="/assets/3.webp" type="image/webp" />
         <img
-          src="/assets/3.webp" // fallback is still next-gen, lighter
+          src="/assets/3.webp"
           alt="Deep night sky background with stars"
           className="absolute inset-0 w-full h-full object-cover object-center -z-10"
           loading="eager"
@@ -72,10 +72,10 @@ const HeroSection = () => {
         />
       </picture>
 
-      {/* Gradient Overlay */}
+      {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent z-0" />
 
-      {/* Content */}
+      {/* Main Content */}
       <motion.div
         className="relative z-10 space-y-8 max-w-5xl mx-auto"
         initial={{ opacity: 0, y: 30 }}
@@ -92,7 +92,7 @@ const HeroSection = () => {
           Onubaiye Adinoyi
         </motion.h1>
 
-        {/* Role rotator — height fixed to prevent layout shift */}
+        {/* Role Rotator */}
         <div className="relative h-12 sm:h-14 lg:h-16 overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.span
@@ -119,7 +119,7 @@ const HeroSection = () => {
           Crafting cutting-edge digital experiences with precision, creativity, and technical mastery.
         </motion.p>
 
-        {/* CTA Button */}
+        {/* CTA */}
         <motion.div
           className="pt-6"
           initial={{ opacity: 0, y: 20 }}
@@ -137,7 +137,7 @@ const HeroSection = () => {
           </Button>
         </motion.div>
 
-        {/* Social Links */}
+        {/* Social Icons */}
         <motion.div
           className="flex justify-center gap-8 pt-8 text-2xl text-white/60"
           initial={{ opacity: 0, y: 20 }}
