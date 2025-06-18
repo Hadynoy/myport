@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import PreLoad from "./components/PreLoad";
 import Home from "./pages/Home";
-import CV from "./pages/CV";
+import CV from "./pages/Cv";
 
 
 
