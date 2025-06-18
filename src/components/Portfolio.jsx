@@ -82,11 +82,9 @@ const Portfolio = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight uppercase">
-            Portfolio
+            Projects
           </h2>
-          <p className="text-white/60 text-sm sm:text-base max-w-md mx-auto">
-            Selected works showcasing expertise and impact.
-          </p>
+          
         </motion.div>
 
         {/* Category Filter */}

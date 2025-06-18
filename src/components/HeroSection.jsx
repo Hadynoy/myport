@@ -56,18 +56,19 @@ const HeroSection = () => {
     <section
       ref={ref}
       id="hero"
-      className="relative min-h-screen flex flex-col justify-center items-center text-center text-white px-6 sm:px-12 lg:px-24 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center items-center text-center text-white px-4 sm:px-6 md:px-12 lg:px-24 overflow-hidden"
       aria-label="Hero Section"
     >
       {/* Parallax Background */}
       <motion.div
         style={{ backgroundPositionY: bgY }}
-        className="absolute inset-0 z-[-1] bg-[url('/assets/3.avif')] bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 z-[-1] bg-[url('/assets/3.avif')] bg-cover bg-center bg-no-repeat pointer-events-none"
       />
 
-      {/* Optional fallback color overlay */}
+      {/* Optional dark overlay */}
       <div className="absolute inset-0 bg-black/50 z-0" />
 
+      {/* Content */}
       <motion.div
         className="relative z-10 space-y-8 max-w-5xl mx-auto"
         initial={{ opacity: 0, y: 30 }}
@@ -84,7 +85,7 @@ const HeroSection = () => {
         </motion.h1>
 
         {/* Rotating Roles */}
-        <div className="relative h-12 sm:h-14 lg:h-16 overflow-hidden">
+        <div className="relative min-h-[3rem] sm:min-h-[3.5rem] lg:min-h-[4rem] overflow-hidden text-balance">
           <AnimatePresence mode="wait">
             <motion.span
               key={roles[currentRoleIndex]}
@@ -127,7 +128,7 @@ const HeroSection = () => {
         </motion.div>
 
         <motion.div
-          className="flex justify-center gap-8 pt-8 text-2xl text-white/60"
+          className="flex justify-center flex-wrap gap-6 pt-8 text-xl sm:text-2xl text-white/60"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.8 }}

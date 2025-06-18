@@ -221,4 +221,8 @@ html {
     @apply bg-background text-foreground;
   }
 }
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
 
