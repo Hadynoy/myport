@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "/src/components/ui/button";
+import DownloadCV from "/src/components/DownloadCV"; // adjust path if needed
 
 const AboutSection = () => {
   return (
@@ -78,22 +79,15 @@ const AboutSection = () => {
 
           {/* BIO */}
           <p className="text-sm sm:text-[15.5px] text-gray-800 leading-relaxed">
-            I’m Adinoyi — a frontend developer who doesn’t just write code, but composes flow.  
+            I’m Adinoyi — a frontend developer who doesn’t just write code, but composes flow.
             I bring clarity to complexity, turning raw ideas into intuitive, responsive realities. Every pixel has purpose. Every transition, intention.
             <br /><br />
-            My work lives in that quiet intersection where design meets rhythm — fast-loading, cleanly structured, and effortlessly smooth.  
+            My work lives in that quiet intersection where design meets rhythm — fast-loading, cleanly structured, and effortlessly smooth.
             This isn’t just frontend—it’s interface as feeling.
           </p>
 
-          {/* BUTTONS */}
-<div className="flex flex-col sm:flex-row gap-4 pt-6">
-  <Button
-    variant="default"
-    className="bg-black text-white hover:bg-gray-900 transition-colors shadow-none rounded-none px-6 text-sm"
-    asChild
-  >
-    <a href="/cv">Download CV</a>
-  </Button>
+          <div className="flex flex-col sm:flex-row gap-4 pt-6">
+  <DownloadCV />
 
   <Button
     variant="outline"

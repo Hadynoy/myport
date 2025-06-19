@@ -1,170 +1,555 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Onubaiye Adinoy - CV</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+  <title>Big Moerell - CV</title>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
-    body {
-      font-family: 'Arial', sans-serif;
+    * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      background-color: #f0f4f8;
     }
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .container:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    }
-    h1 {
-      color: #A67C00;
-      font-size: 38px;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    h2 {
-      color: #A67C00;
-      margin-top: 30px;
-      margin-bottom: 15px;
-      border-bottom: 3px solid #A67C00;
-      padding-bottom: 5px;
-    }
-    p {
-      color: #444;
+
+    body {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      color: #2b2b2b;
+      background-color: #f8f8f8;
       line-height: 1.8;
     }
-    ul, ol {
-      padding-left: 20px;
-      margin-top: 10px;
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 2rem;
+    }
+
+    .lang-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: none;
+      border: none;
+      color: #555;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .lang-btn:hover {
+      color: #000;
+    }
+
+    .lang-modal {
+      position: absolute;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 0.25rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 0.5rem;
+      z-index: 1100;
+      display: none;
+    }
+
+    .lang-modal.show {
+      display: block;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .lang-option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0.5rem 1rem;
+      background: none;
+      border: none;
+      color: #333;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .lang-option:hover {
+      background: #f5f5f5;
+    }
+
+    .letterhead {
+      background: #1a1a1a;
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+      border-bottom: 2px solid #d4af37;
+    }
+
+    .letterhead h1 {
+      font-size: 2.2rem;
+      font-weight: normal;
+      letter-spacing: 0.05em;
+    }
+
+    .letterhead .title {
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #d4af37;
+      margin-top: 0.5rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: #ccc;
+    }
+
+    .contact-info a {
+      color: #ccc;
+      text-decoration: none;
+    }
+
+    .content {
+      background: #fff;
+      padding: 3rem;
+      margin-top: 2rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .section {
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section h2 {
+      font-size: 1.1rem;
+      font-weight: normal;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #1a1a1a;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .section p {
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    .job h3 {
+      font-size: 1rem;
+      font-weight: normal;
       color: #333;
     }
-    li {
-      margin-bottom: 8px;
+
+    .job .date {
+      font-size: 0.85rem;
+      color: #777;
+      margin-top: 0.25rem;
     }
-    input, textarea {
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      border: 1px solid #A67C00;
-      border-radius: 10px;
-      font-size: 14px;
-      outline: none;
-      transition: box-shadow 0.3s;
+
+    .job ul, .skills-list {
+      list-style: none;
+      padding-left: 1rem;
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+      color: #444;
     }
-    textarea:focus, input:focus {
-      box-shadow: 0 0 5px rgba(166, 124, 0, 0.5);
+
+    .job ul li, .skills-list li {
+      position: relative;
+      margin-bottom: 0.5rem;
+      padding-left: 1rem;
     }
-    input[type="submit"] {
-      background-color: #A67C00;
-      color: white;
-      cursor: pointer;
-      border: none;
-      margin-top: 15px;
-      padding: 12px;
-      border-radius: 8px;
-      transition: background-color 0.3s;
+
+    .job ul li:before, .skills-list li:before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #d4af37;
     }
-    input[type="submit"]:hover {
-      background-color: #856300;
-    }
+
     .download-btn {
-      margin-top: 20px;
-      background-color: #A67C00;
-      color: white;
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #1a1a1a;
+      color: #fff;
       border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
+      border-radius: 0.25rem;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
       cursor: pointer;
-      transition: background-color 0.3s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s, background 0.2s;
+      z-index: 1100;
     }
+
+    .download-btn.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .download-btn:hover {
-      background-color: #856300;
+      background: #333;
+    }
+
+    @media (min-width: 640px) {
+      .container {
+        padding: 5rem 2.5rem;
+      }
+
+      .letterhead {
+        padding: 2.5rem;
+      }
+
+      .letterhead h1 {
+        font-size: 2.5rem;
+      }
+
+      .contact-info {
+        flex-direction: row;
+      }
+
+      .contact-info span.sep {
+        display: inline;
+      }
+
+      .content {
+        padding: 4rem;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .container {
+        padding: 0;
+      }
+
+      .controls, .download-btn {
+        display: none;
+      }
+
+      .letterhead {
+        background: #fff;
+        color: #000;
+        border-bottom: 2px solid #000;
+      }
+
+      .letterhead .title {
+        color: #000;
+      }
+
+      .contact-info, .contact-info a {
+        color: #000;
+      }
+
+      .content {
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+      }
     }
   </style>
-  <script type="text/javascript"
-  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-</script>
-<script type="text/javascript">
-(function(){
-emailjs.init({
-  publicKey: "aCwgI4IIKUzPOXyEE",
-});
-})();
-</script>
 </head>
-
 <body>
   <div class="container" id="cv">
-    <h1>Onubaiye Adinoy</h1>
-    <p><strong>Email:</strong> bigmoerell@gmail.com</p>
-    <p><strong>Phone:</strong> 08098986274</p>
-    <p><strong>Address:</strong> 156 Herbert Macaulay Road</p>
+    <div class="controls">
+      <button class="lang-btn" id="lang-btn">
+        <i data-feather="globe" style="width: 1.25rem; height: 1.25rem;"></i>
+        Language
+      </button>
+      <div class="lang-modal" id="lang-modal">
+        <button class="lang-option" data-lang="en">English</button>
+        <button class="lang-option" data-lang="es">Español</button>
+        <button class="lang-option" data-lang="fr">Français</button>
+      </div>
+    </div>
 
-    <h2>Profile</h2>
-    <p>A motivated and skilled professional with expertise in web development and a passion for creating user-friendly applications.</p>
+    <div class="letterhead">
+      <h1>Big Moerell</h1>
+      <p class="title" data-key="webSpecialist"></p>
+      <div class="contact-info">
+        <a href="mailto:bigmoerell@gmail.com">bigmoerell@gmail.com</a>
+        <span class="sep">|</span>
+        <span data-key="location"></span>
+        <span class="sep">|</span>
+        <span>+234 809 8986 274</span>
+      </div>
+    </div>
 
-    <h2>Experience</h2>
-    <h4>Frontend Developer - GoMyCode (2024 - Till Date)</h4>
-    <ul>
-      <li>Designed and developed user interfaces for web applications.</li>
-      <li>Collaborated with backend developers to integrate APIs.</li>
-      <li>Optimized applications for performance and scalability.</li>
-    </ul>
+    <div class="content">
+      <section class="section" id="profile">
+        <h2 data-key="sections.profile"></h2>
+        <p data-key="profile"></p>
+      </section>
 
-    <h2>Education</h2>
-    <p><strong>Bachelor of Management in Accounting</strong></p>
-    <p>University of Lagos (2019 - 2024)</p>
+      <section class="section" id="employment">
+        <h2 data-key="sections.employment"></h2>
+        <div class="job">
+          <h3 data-key="employmentTitle1"></h3>
+          <p class="date" data-key="employmentDate1"></p>
+          <ul data-key="employmentBullets1"></ul>
+        </div>
+        <div class="job">
+          <h3 data-key="employmentTitle2"></h3>
+          <p class="date" data-key="employmentDate2"></p>
+          <ul data-key="employmentBullets2"></ul>
+        </div>
+      </section>
 
-    <h2>Skills</h2>
-    <ol>
-      <li>HTML</li>
-      <li>CSS</li>
-      <li>JavaScript</li>
-      <li>React</li>
-    </ol>
+      <section class="section" id="education">
+        <h2 data-key="sections.education"></h2>
+        <div>
+          <h3 data-key="educationTitle"></h3>
+          <p class="date" data-key="educationDate"></p>
+        </div>
+      </section>
 
-    <h2>Hobbies</h2>
-    <ul>
-      <li>Jesus</li>
-      <li>Music</li>
-      <li>Coding</li>
-    </ul>
+      <section class="section" id="skills">
+        <h2 data-key="sections.skills"></h2>
+        <ul class="skills-list" data-key="skills"></ul>
+      </section>
+    </div>
 
-    <h2>Feedback</h2>
-    <textarea id="message" placeholder="I'm open to your feedback"></textarea>
-    <input onclick="sendMail(event)" type="submit" value="Submit Feedback">
-    <br>
-    <button class="download-btn" onclick="downloadPDF()">Download CV as PDF</button>
+    <button class="download-btn" id="download-btn">
+      <i data-feather="download" style="width: 1.25rem; height: 1.25rem;"></i>
+      <span data-key="download"></span>
+    </button>
   </div>
 
   <script>
-    function downloadPDF() {
+    feather.replace();
+
+    const translations = {
+      en: {
+        profile: "Quality-focused IT specialist with over six years of experience in delivering systems and application support alongside end-users and infrastructure teams. Dedicated to providing exceptional technical support to executive-level clients and vendors. CRISC certified.",
+        employmentTitle1: "IT Specialist, Callubra, Seattle",
+        employmentDate1: "July 2016 — January 2022",
+        employmentBullets1: [
+          "Provided on-site technical support for IT and AV infrastructure.",
+          "Implemented audio/visual and IT systems at client facilities.",
+          "Troubleshot technical issues for clients and internal teams.",
+          "Developed and adhered to procedural documentation.",
+          "Supported server and back-end network systems.",
+          "Collaborated on projects valued over $2 million."
+        ],
+        employmentTitle2: "IT Support Specialist, Seattle Central College, Seattle",
+        employmentDate2: "October 2013 — June 2016",
+        employmentBullets2: [
+          "Recommended hardware and software purchases.",
+          "Supported IT needs for staff and faculty.",
+          "Managed computer inventory systems.",
+          "Maintained over 10 college software systems."
+        ],
+        educationTitle: "Bachelor of Computer Science, Seattle University",
+        educationDate: "2009 — 2013",
+        skills: [
+          "Computer Networking",
+          "JavaScript",
+          "Problem Solving",
+          "Angular",
+          "Software Installation",
+          "Customer Support"
+        ],
+        sections: {
+          profile: "Profile",
+          employment: "Employment History",
+          education: "Education",
+          skills: "Skills"
+        },
+        webSpecialist: "Web Specialist",
+        location: "Lagos, Nigeria",
+        download: "Download PDF"
+      },
+      es: {
+        profile: "Especialista en TI enfocado en la calidad con más de seis años de experiencia brindando soporte de sistemas y aplicaciones junto a usuarios finales y equipos de infraestructura. Dedicado a ofrecer soporte técnico excepcional a clientes y proveedores de nivel ejecutivo. Certificado CRISC.",
+        employmentTitle1: "Especialista en TI, Callubra, Seattle",
+        employmentDate1: "Julio 2016 — Enero 2022",
+        employmentBullets1: [
+          "Brindó soporte técnico in situ para infraestructura de TI y AV.",
+          "Implementó sistemas de audio/visual y TI en instalaciones de clientes.",
+          "Resolvió problemas técnicos para clientes y equipos internos.",
+          "Desarrolló y cumplió con documentación de procedimientos.",
+          "Apoyó sistemas de servidores y redes backend.",
+          "Colaboró en proyectos valorados en más de $2 millones."
+        ],
+        employmentTitle2: "Especialista en Soporte de TI, Seattle Central College, Seattle",
+        employmentDate2: "Octubre 2013 — Junio 2016",
+        employmentBullets2: [
+          "Recomendó compras de hardware y software.",
+          "Apoyó las necesidades de TI del personal y la facultad.",
+          "Gestionó sistemas de inventario de computadoras.",
+          "Mantuvo más de 10 sistemas de software de la universidad."
+        ],
+        educationTitle: "Licenciatura en Ciencias de la Computación, Universidad de Seattle",
+        educationDate: "2009 — 2013",
+        skills: [
+          "Redes Informáticas",
+          "JavaScript",
+          "Resolución de Problemas",
+          "Angular",
+          "Instalación de Software",
+          "Soporte al Cliente"
+        ],
+        sections: {
+          profile: "Perfil",
+          employment: "Historial de Empleo",
+          education: "Educación",
+          skills: "Habilidades"
+        },
+        webSpecialist: "Especialista Web",
+        location: "Lagos, Nigeria",
+        download: "Descargar PDF"
+      },
+      fr: {
+        profile: "Spécialiste en informatique axé sur la qualité avec plus de six ans d'expérience dans la fourniture de support pour les systèmes et applications aux côtés des utilisateurs finaux et des équipes d'infrastructure. Engagé à offrir un support technique exceptionnel aux clients et fournisseurs de niveau exécutif. Certifié CRISC.",
+        employmentTitle1: "Spécialiste en Informatique, Callubra, Seattle",
+        employmentDate1: "Juillet 2016 — Janvier 2022",
+        employmentBullets1: [
+          "Fourni un support technique sur site pour l'infrastructure informatique et audiovisuelle.",
+          "Mis en œuvre des systèmes audiovisuels et informatiques sur site.",
+          "Résolu des problèmes techniques pour les clients et les équipes internes.",
+          "Développé et respecté la documentation des procédures.",
+          "Soutenu les systèmes de serveurs et de réseaux backend.",
+          "Collaboré sur des projets dépassant 2 millions de dollars."
+        ],
+        employmentTitle2: "Spécialiste en Support Informatique, Seattle Central College, Seattle",
+        employmentDate2: "Octobre 2013 — Juin 2016",
+        employmentBullets2: [
+          "Recommandé des achats de matériel et de logiciels.",
+          "Soutenu les besoins informatiques du personnel et des professeurs.",
+          "Géré les systèmes d'inventaire des ordinateurs.",
+          "Maintenu plus de 10 systèmes logiciels de l'université."
+        ],
+        educationTitle: "Licence en Informatique, Université de Seattle",
+        educationDate: "2009 — 2013",
+        skills: [
+          "Réseaux Informatiques",
+          "JavaScript",
+          "Résolution de Problèmes",
+          "Angular",
+          "Installation de Logiciels",
+          "Support Client"
+        ],
+        sections: {
+          profile: "Profil",
+          employment: "Historique d'Emploi",
+          education: "Éducation",
+          skills: "Compétences"
+        },
+        webSpecialist: "Spécialiste Web",
+        location: "Lagos, Nigeria",
+        download: "Télécharger le PDF"
+      }
+    };
+
+    let currentLang = 'en';
+
+    function updateContent(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (key.includes('.')) {
+          const [main, sub] = key.split('.');
+          el.textContent = t[main][sub] || '';
+        } else if (key === 'skills' || key.startsWith('employmentBullets')) {
+          el.innerHTML = t[key].map(item => `<li>${item}</li>`).join('');
+        } else {
+          el.textContent = t[key] || '';
+        }
+      });
+    }
+
+    function toggleLangModal(e) {
+      const modal = document.getElementById('lang-modal');
+      const rect = document.getElementById('lang-btn').getBoundingClientRect();
+      modal.style.top = `${rect.bottom + window.scrollY + 10}px`;
+      modal.style.left = `${rect.left}px`;
+      modal.classList.toggle('show');
+    }
+
+    function handleLangSelect(e) {
+      if (e.target.classList.contains('lang-option')) {
+        const lang = e.target.dataset.lang;
+        updateContent(lang);
+        document.getElementById('lang-modal').classList.remove('show');
+      }
+    }
+
+    function handleClickOutside(e) {
+      const modal = document.getElementById('lang-modal');
+      if (!modal.contains(e.target) && !e.target.closest('#lang-btn')) {
+        modal.classList.remove('show');
+      }
+    }
+
+    function handleScroll() {
+      const downloadBtn = document.getElementById('download-btn');
+      const sections = document.querySelectorAll('.section');
+      downloadBtn.classList.toggle('show', window.scrollY > 200);
+
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.9) {
+          section.classList.add('visible');
+        }
+      });
+    }
+
+    function handleDownload() {
       const element = document.getElementById('cv');
-      html2pdf().from(element).save();
+      const opt = {
+        margin: 0.5,
+        filename: 'BigMoerell-CV.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save();
     }
-    function sendMail(event) {
-      let message = document.getElementById("message").value.trim();
 
-      let parms = { message };
+    document.getElementById('lang-btn').addEventListener('click', toggleLangModal);
+    document.getElementById('lang-modal').addEventListener('click', handleLangSelect);
+    document.addEventListener('click', handleClickOutside);
+    document.addEventListener('scroll', handleScroll);
+    document.getElementById('download-btn').addEventListener('click', handleDownload);
 
-      emailjs.send("service_v8mw1si", "template_rze9rqh", parms)
-    .then(() => {
-      alert("Feedback sent successfully!");
-      document.getElementById("message").value = "";
-    })
-    }
+    updateContent('en');
+    handleScroll();
   </script>
 </body>
-
 </html>

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
 
+  { id: "hero", label: "Home" },
   { id: "about", label: "About" },
   { id: "services", label: "Services" },
   { id: "portfolio", label: "Projects" },
@@ -54,15 +55,7 @@ const Navbar = () => {
               {link.label}
             </ScrollLink>
           ))}
-          <ScrollLink
-            to="contact"
-            smooth
-            duration={500}
-            offset={-60}
-            className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-900 transition cursor-pointer"
-          >
-            Let’s Talk
-          </ScrollLink>
+          
         </nav>
 
         {/* Hamburger Icon */}

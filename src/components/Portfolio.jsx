@@ -4,6 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { Button } from "/src/components/ui/button";
 import { Card } from "/src/components/ui/card";
 import { FaCode, FaMobileAlt, FaPalette } from "react-icons/fa";
+import clsx from "clsx";
 
 const Portfolio = () => {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
@@ -71,7 +72,7 @@ const Portfolio = () => {
     <section
       ref={ref}
       id="portfolio"
-      className="py-20 px-6 sm:px-12 lg:px-20 bg-neutral-900 text-white"
+      className="py-20 px-6 sm:px-12 lg:px-20 text-neutral-900 bg-white"
     >
       <div className="max-w-6xl mx-auto space-y-10">
         {/* Header */}
@@ -84,7 +85,6 @@ const Portfolio = () => {
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight uppercase">
             Projects
           </h2>
-          
         </motion.div>
 
         {/* Category Filter */}
@@ -96,18 +96,21 @@ const Portfolio = () => {
         >
           {categories.map((category) => (
             <Button
-            key={category}
-            variant="ghost"
-            size="sm"
-            className={`border border-white/10 text-white/70 hover:text-violet-300 hover:border-violet-500/40 px-3 py-1 text-xs sm:text-sm rounded-full transition-all duration-300
-              ${activeCategory === category ? "bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-semibold shadow-lg" : ""}
-            `}
-            onClick={() => setActiveCategory(category)}
-            aria-pressed={activeCategory === category}
-          >
-            {category}
-          </Button>
-          
+              key={category}
+              variant="ghost"
+              size="sm"
+              className={clsx(
+                "border px-3 py-1 text-xs sm:text-sm rounded-full transition-all duration-300",
+                "hover:border-black hover:text-black hover:scale-105",
+                activeCategory === category
+                  ? "bg-black text-white font-semibold shadow-lg"
+                  : "border-black/10 text-black/60"
+              )}
+              onClick={() => setActiveCategory(category)}
+              aria-pressed={activeCategory === category}
+            >
+              {category}
+            </Button>
           ))}
         </motion.div>
 
@@ -127,30 +130,26 @@ const Portfolio = () => {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.1 + index * 0.08 }}
               >
-                <Card className="relative h-64 overflow-hidden bg-neutral-900/30 border-none shadow-md group">
+                <Card className="relative h-64 overflow-hidden bg-neutral-900/30 border-none shadow-md group hover:shadow-2xl hover:ring-2 hover:ring-black/80 transition duration-500 ease-in-out">
                   {/* Optimized Image */}
                   <picture>
-                    <source
-                      srcSet={`/${project.imageBase}.avif`}
-                      type="image/avif"
-                    />
-                    <source
-                      srcSet={`/${project.imageBase}.webp`}
-                      type="image/webp"
-                    />
+                    <source srcSet={`/${project.imageBase}.avif`} type="image/avif" />
+                    <source srcSet={`/${project.imageBase}.webp`} type="image/webp" />
                     <img
                       src={`/${project.imageBase}.png`}
                       alt=""
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:brightness-75"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05] group-hover:brightness-75"
                       aria-hidden="true"
                     />
                   </picture>
 
                   {/* Overlay Description */}
-                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center p-4 transition-opacity duration-500 group-hover:opacity-0">
-                    <p className="text-white/80 text-sm text-center">{project.description}</p>
+                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center p-4 transition-all duration-500 group-hover:opacity-0 group-hover:translate-y-4">
+                    <p className="text-white/80 text-sm text-center">
+                      {project.description}
+                    </p>
                   </div>
 
                   {/* Hover Title & Link */}
@@ -158,13 +157,17 @@ const Portfolio = () => {
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-neutral-900/50"
+                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-black/60"
                   >
                     <motion.div
                       className="flex items-center gap-3 text-white"
                       initial={{ scale: 0.85, y: 20, opacity: 0 }}
                       animate={{ scale: 1, y: 0, opacity: 1 }}
-                      transition={{ duration: 0.4, type: "spring", stiffness: 200 }}
+                      transition={{
+                        duration: 0.4,
+                        type: "spring",
+                        stiffness: 200,
+                      }}
                     >
                       {project.icon}
                       <h3 className="text-lg sm:text-xl font-semibold tracking-tight">

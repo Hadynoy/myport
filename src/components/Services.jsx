@@ -40,10 +40,11 @@ const Services = () => {
 
   return (
     <section
-      id="services"
-      ref={ref}
-      className="bg-white py-24 px-6 sm:px-12 lg:px-24"
-    >
+  id="services"
+  ref={ref}
+  className="bg-white pt-12 pb-24 px-6 sm:px-12 lg:px-24"
+>
+
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
