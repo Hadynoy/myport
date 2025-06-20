@@ -1,12 +1,14 @@
+// src/components/CVDocument.jsx
 import React from "react";
 import {
   Page,
   Text,
   View,
   Document,
-  StyleSheet
+  StyleSheet,
 } from "@react-pdf/renderer";
 
+// Styles
 const styles = StyleSheet.create({
   page: {
     backgroundColor: "#fff",
@@ -29,7 +31,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 1,
     textTransform: "uppercase",
-    marginBottom: 10, // Increased space after name
+    marginBottom: 10,
   },
   contact: {
     fontSize: 9,
@@ -92,9 +94,9 @@ const CVDocument = () => (
     <Page size="A4" style={styles.page}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.name}>Big Moerell</Text>
+        <Text style={styles.name}>Onubaiye Adinoyi</Text>
         <View style={styles.contact}>
-          <Text>bigmoerell@gmail.com</Text>
+          <Text>onubaiyeadinoyi@gmail.com</Text>
           <Text> | </Text>
           <Text>Lagos, Nigeria</Text>
           <Text> | </Text>
@@ -106,33 +108,29 @@ const CVDocument = () => (
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Profile</Text>
         <Text style={styles.paragraph}>
-          Quality-focused IT specialist with 6+ years of experience delivering technical support, infrastructure maintenance, and system optimization. Dedicated to executive-level service with CRISC certification and a commitment to proactive problem-solving.
+          Passionate Frontend Developer with a background in Accounting and a drive for clean, user-focused design. I build modern, responsive web interfaces using React and Tailwind CSS. Recently built and deployed “Healthbridge” — a real-world healthcare platform — and currently working on a real estate web application. Eager to contribute to professional teams and grow in a real-world development environment.
         </Text>
       </View>
 
-      {/* Employment History */}
+      {/* Projects */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Employment History</Text>
+        <Text style={styles.sectionTitle}>Projects</Text>
 
-        <Text style={styles.jobTitle}>IT Specialist — Callubra, Seattle</Text>
-        <Text style={styles.jobPeriod}>July 2016 — Jan 2022</Text>
+        <Text style={styles.jobTitle}>Healthbridge — Healthcare Website</Text>
+        <Text style={styles.jobPeriod}>2025</Text>
         {[
-          "Provided on-site technical support for IT and AV infrastructure at various client locations.",
-          "Handled end-to-end support including implementation of audio/visual systems.",
-          "Created, updated and adhered to procedural documentation.",
-          "Supported servers and back-end network systems.",
-          "Collaborated on multi-million dollar projects."
+          "Designed and developed the frontend using React and Tailwind CSS.",
+          "Implemented responsive UI and user flows for booking, profiles, and messaging.",
+          "Focused on real deployment performance (Lighthouse, lazy loading, image optimization)."
         ].map((item, i) => (
           <Text key={i} style={styles.listItem}>• {item}</Text>
         ))}
 
-        <Text style={[styles.jobTitle, { marginTop: 8 }]}>IT Support Specialist — Seattle Central College</Text>
-        <Text style={styles.jobPeriod}>Oct 2013 — Jun 2016</Text>
+        <Text style={[styles.jobTitle, { marginTop: 8 }]}>Estate Website — Real Estate Platform</Text>
+        <Text style={styles.jobPeriod}>2025 (In Progress)</Text>
         {[
-          "Recommended hardware/software purchases after research and analysis.",
-          "Provided IT support to staff, students, and faculty.",
-          "Maintained campus-wide inventory systems.",
-          "Supported over 10 internal systems with minimal downtime."
+          "Building an elegant frontend with animated sections and professional UI components.",
+          "Uses real-world UI practices from Envato templates with smooth navigation and interaction.",
         ].map((item, i) => (
           <Text key={i} style={styles.listItem}>• {item}</Text>
         ))}
@@ -141,7 +139,7 @@ const CVDocument = () => (
       {/* Education */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Education</Text>
-        <Text style={styles.paragraph}>B.Sc. Computer Science — Seattle University (2009 – 2013)</Text>
+        <Text style={styles.paragraph}>B.Sc. Accounting — [Open University of Nigeria] (2024)</Text>
       </View>
 
       {/* Skills */}
@@ -149,12 +147,14 @@ const CVDocument = () => (
         <Text style={styles.sectionTitle}>Skills</Text>
         <View style={styles.skillsGrid}>
           {[
-            "Computer Networking",
-            "JavaScript & Angular",
-            "Software Installation",
-            "Customer Support",
-            "Problem Solving",
-            "Team Collaboration",
+            "React.js",
+            "Tailwind CSS",
+            "JavaScript (ES6+)",
+            "Framer Motion",
+            "Responsive Design",
+            "Version Control (Git)",
+            "Form Validation",
+            "Frontend Performance",
           ].map((skill, i) => (
             <Text key={i} style={styles.skillItem}>{skill}</Text>
           ))}
