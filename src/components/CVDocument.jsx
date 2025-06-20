@@ -1,4 +1,3 @@
-// src/components/CVDocument.jsx
 import React from "react";
 import {
   Page,
@@ -8,7 +7,6 @@ import {
   StyleSheet,
 } from "@react-pdf/renderer";
 
-// Styles
 const styles = StyleSheet.create({
   page: {
     backgroundColor: "#fff",
@@ -96,7 +94,7 @@ const CVDocument = () => (
       <View style={styles.header}>
         <Text style={styles.name}>Onubaiye Adinoyi</Text>
         <View style={styles.contact}>
-          <Text>onubaiyeadinoyi@gmail.com</Text>
+          <Text>bigmoerell@gmail.com</Text>
           <Text> | </Text>
           <Text>Lagos, Nigeria</Text>
           <Text> | </Text>
@@ -108,7 +106,7 @@ const CVDocument = () => (
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Profile</Text>
         <Text style={styles.paragraph}>
-          Passionate Frontend Developer with a background in Accounting and a drive for clean, user-focused design. I build modern, responsive web interfaces using React and Tailwind CSS. Recently built and deployed “Healthbridge” — a real-world healthcare platform — and currently working on a real estate web application. Eager to contribute to professional teams and grow in a real-world development environment.
+          Junior frontend developer with a background in accounting and a strong passion for clean, interactive design. Experienced in building responsive, production-ready websites using React, Tailwind CSS, and JavaScript. Focused on creating elegant user interfaces and continuously improving real-world performance.
         </Text>
       </View>
 
@@ -116,12 +114,12 @@ const CVDocument = () => (
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Projects</Text>
 
-        <Text style={styles.jobTitle}>Healthbridge — Healthcare Website</Text>
+        <Text style={styles.jobTitle}>Healthbridge — Healthcare Platform</Text>
         <Text style={styles.jobPeriod}>2025</Text>
         {[
-          "Designed and developed the frontend using React and Tailwind CSS.",
-          "Implemented responsive UI and user flows for booking, profiles, and messaging.",
-          "Focused on real deployment performance (Lighthouse, lazy loading, image optimization)."
+          "Developed the frontend using React and Tailwind CSS with clean, scalable architecture.",
+          "Created responsive interfaces for patient booking, profiles, and secure messaging.",
+          "Optimized for real-world deployment: Lighthouse scoring, lazy loading, and asset compression.",
         ].map((item, i) => (
           <Text key={i} style={styles.listItem}>• {item}</Text>
         ))}
@@ -129,8 +127,19 @@ const CVDocument = () => (
         <Text style={[styles.jobTitle, { marginTop: 8 }]}>Estate Website — Real Estate Platform</Text>
         <Text style={styles.jobPeriod}>2025 (In Progress)</Text>
         {[
-          "Building an elegant frontend with animated sections and professional UI components.",
-          "Uses real-world UI practices from Envato templates with smooth navigation and interaction.",
+          "Building a refined frontend using React and Tailwind, inspired by top Envato templates.",
+          "Includes animated components, scroll-based UI, and mobile-first responsive layouts.",
+        ].map((item, i) => (
+          <Text key={i} style={styles.listItem}>• {item}</Text>
+        ))}
+
+        <Text style={[styles.jobTitle, { marginTop: 8 }]}>Portfolio Website — Developer Portfolio</Text>
+        <Text style={styles.jobPeriod}>2025</Text>
+        {[
+          "Designed and developed a personal portfolio using React, Tailwind CSS, and Framer Motion.",
+          "Implemented interactive sections like Hero, About, Services, Testimonials, Contact, and a dynamic CV page with PDF export.",
+          "Focused on polished UI, scroll animations, responsiveness, and Lighthouse optimization for real deployment.",
+          "Hosted live with domain and CI/CD setup using Render.",
         ].map((item, i) => (
           <Text key={i} style={styles.listItem}>• {item}</Text>
         ))}
@@ -139,7 +148,7 @@ const CVDocument = () => (
       {/* Education */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Education</Text>
-        <Text style={styles.paragraph}>B.Sc. Accounting — [Open University of Nigeria] (2024)</Text>
+        <Text style={styles.paragraph}>B.Sc. Accounting — University of Abuja, Nigeria</Text>
       </View>
 
       {/* Skills */}
@@ -150,11 +159,11 @@ const CVDocument = () => (
             "React.js",
             "Tailwind CSS",
             "JavaScript (ES6+)",
-            "Framer Motion",
             "Responsive Design",
             "Version Control (Git)",
-            "Form Validation",
-            "Frontend Performance",
+            "Framer Motion",
+            "UI Animation",
+            "Accessibility & SEO",
           ].map((skill, i) => (
             <Text key={i} style={styles.skillItem}>{skill}</Text>
           ))}
